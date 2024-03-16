@@ -24,9 +24,7 @@ export default function Home() {
             </span>
           </h1>
 
-          <div className="connect" style={{ position: "fixed", top: 20, right: 0 }}>
-            <ConnectWallet />
-          </div>
+         
           
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%",marginTop:"20%" }}>
             <Web3Button
