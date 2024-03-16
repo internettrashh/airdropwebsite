@@ -1,7 +1,18 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { ConnectWallet , useContract } from "@thirdweb-dev/react";
 import "./styles/Home.css";
+import  { CONTRACTADDY }  from "./contracts/Contractaddy.js";
+import { Web3Button } from "@thirdweb-dev/react";
+import React, { useState } from 'react';
+
+
+
 
 export default function Home() {
+  const {contract}=useContract(CONTRACTADDY);
+  const [showModal, setShowModal] = useState(false);
+  // console.log(CONTRACTADDY);
+  
+  
   return (
     <main className="main">
       <div className="container">
@@ -9,84 +20,35 @@ export default function Home() {
           <h1 className="title">
             Welcome to{" "}
             <span className="gradient-text-0">
-              <a
-                href="https://thirdweb.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                thirdweb.
-              </a>
+                crypto mayne airdrop
             </span>
           </h1>
 
-          <p className="description">
-            Get started by configuring your desired network in{" "}
-            <code className="code">src/index.js</code>, then modify the{" "}
-            <code className="code">src/App.js</code> file!
-          </p>
-
-          <div className="connect">
+          <div className="connect" style={{ position: "fixed", top: 20, right: 0 }}>
             <ConnectWallet />
           </div>
+          
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%",marginTop:"20%" }}>
+            <Web3Button
+              contractAddress={CONTRACTADDY}
+              action={(contract) => contract.call("claim")}
+              onSuccess={(result) => {
+                console.log("Transaction successful:", result);
+                setShowModal(true);
+              }}
+            >
+              airdrop 1 token 
+            </Web3Button>
+            {showModal && (    <div className="card" style={{ position: "fixed", top: "40%", left: "50%", transform: "translate(-50%, -50%)" }}>
+    
+          <h2>Transaction Successful</h2>
+          <p>Your transaction was successful, please check your wallet.</p>
+          
+          <button style={{ justifyContent: "center", alignItems: "center"}} onClick={() => setShowModal(false)}>Close</button>
+          
         </div>
-
-        <div className="grid">
-          <a
-            href="https://portal.thirdweb.com/"
-            className="card"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="/images/portal-preview.png"
-              alt="Placeholder preview of starter"
-            />
-            <div className="card-text">
-              <h2 className="gradient-text-1">Portal ➜</h2>
-              <p>
-                Guides, references, and resources that will help you build with
-                thirdweb.
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="https://thirdweb.com/dashboard"
-            className="card"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="/images/dashboard-preview.png"
-              alt="Placeholder preview of starter"
-            />
-            <div className="card-text">
-              <h2 className="gradient-text-2">Dashboard ➜</h2>
-              <p>
-                Deploy, configure, and manage your smart contracts from the
-                dashboard.
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="https://thirdweb.com/templates"
-            className="card"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="/images/templates-preview.png"
-              alt="Placeholder preview of templates"
-            />
-            <div className="card-text">
-              <h2 className="gradient-text-3">Templates ➜</h2>
-              <p>
-                Discover and clone template projects showcasing thirdweb
-                features.
-              </p>
-            </div>
-          </a>
+      )}
+          </div>
         </div>
       </div>
     </main>

@@ -50,6 +50,10 @@
 .title {
   line-height: 1.15;
   font-size: 4rem;
+  justify-content: center;
+  text-align: center;
+  margin-left: 9rem;
+  
 }
 
 .title,
@@ -58,7 +62,7 @@
 }
 
 .connect {
-  margin-bottom: 2rem;
+  margin-bottom: 20rem;
 }
 
 .description {
